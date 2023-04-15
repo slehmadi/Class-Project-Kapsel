@@ -16,7 +16,7 @@ export const HomeScreen = ({navigation}) => {
                 </Text>
             </View>
             <TouchableOpacity style={styles.buttonSpace}  onPress={() => navigation.replace('Test')}>
-                <Text style={styles.buttonText}>Next</Text>
+                <Text style={styles.buttonText}>Mulai</Text>
             </TouchableOpacity>
 
         </View>
@@ -54,12 +54,13 @@ const styles = StyleSheet.create({
     },
     buttonSpace: {
         backgroundColor: 'black', 
-        paddingHorizontal: '40%', 
-        paddingVertical: '5%',
+        paddingHorizontal: '38%', 
+        paddingVertical: '4%',
         marginBottom: '10%',
         borderRadius: 40,
     },
     buttonText: {
         color: 'white',
+        fontSize: 20,
     },
 });
