@@ -1,5 +1,4 @@
-import { Image, View, Text, TouchableOpacity } from "react-native";
-import { StyleSheet } from 'react-native';
+import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import MapView from 'react-native-maps';
 import { useState } from "react";
 import { checkDetail } from "../data/checkDetailed";
@@ -29,48 +28,48 @@ export const MapScreen = ({navigation}) => {
             onRegionChangeComplete={(region) => {
                 currentRegion = region;
             }} />
-            <TouchableOpacity style={{flex: 1, position: 'absolute', backgroundColor: 'white', borderRadius: 50, marginHorizontal: 20, marginTop: 40, paddingVertical: 10, paddingHorizontal: '8%'}} onPress={null}>
-                <Text style={{ alignSelf: 'center', fontSize: 15, fontWeight: 'bold'}}>
+            <TouchableOpacity style={styles.filterButton} onPress={null}>
+                <Text style={styles.filterButtonText}>
                     Filter
                 </Text>
             </TouchableOpacity>
             {testConnection ? (
-                <View style={{flex: 1, justifyContent: 'flex-end'}}>
-                    <View style={{position: "absolute", width: '100%', backgroundColor: 'black', borderTopRightRadius: 25, borderTopLeftRadius: 25}}>
-                        <TouchableOpacity style={{ alignItems: 'center', backgroundColor: 'white', opacity: 0.9, borderTopRightRadius: 50, borderTopLeftRadius: 50}} onPress={() => setTestConnection(!testConnection)}>
+                <View style={styles.resultTestConnectionContainer}>
+                    <View style={styles.resultTestConnectionBlock}>
+                        <TouchableOpacity style={styles.resultTestConnectionClose} onPress={() => setTestConnection(!testConnection)}>
                             <Text>---</Text>
                         </TouchableOpacity>
-                        <View style={{ alignItems: 'center', marginVertical: '5%'}}>
-                            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-                                    <Image source={require('../../assets/arrow.png')}  style={{flex: 1, aspectRatio: 1, transform: [{rotate: '-90deg'}], alignSelf: 'center', marginLeft: '2%'}} />
+                        <View style={styles.resultMainContainer}>
+                            <View style={styles.resultMainSection}>
+                                <View style={styles.resultMainPart}>
+                                    <ImageArrow degree='-90deg' />
                                     <View style={{flex: 1}}>
-                                        <Text style={{fontSize: 30, color: 'white'}}>14.56</Text>
+                                        <Text style={styles.resultMainSpeed}>14.56</Text>
                                         <Text style={{color: 'white'}}>MBps</Text>
                                     </View>
                                 </View>
-                                <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-                                    <Image source={require('../../assets/arrow.png')}  style={{flex: 1, aspectRatio: 1, transform: [{rotate: '90deg'}], alignSelf: 'center', marginLeft: '2%'}} />
+                                <View style={styles.resultMainPart}>
+                                    <ImageArrow degree='90deg' />
                                     <View style={{flex: 1}}>
-                                        <Text style={{fontSize: 30, color: 'white'}}>8.56</Text>
+                                        <Text style={styles.resultMainSpeed}>8.56</Text>
                                         <Text style={{color: 'white'}}>MBps</Text>
                                     </View>
                                 </View>
                             </View>
                             <View>
-                                <Text style={{color: 'yellow', marginVertical: '10%'}}>Internet kamu cukup baik</Text>
+                                <Text style={styles.resultCommentary}>Internet kamu cukup baik</Text>
                             </View>
                         </View>
-                        <TouchableOpacity style={{alignItems: 'center', marginBottom: '5%'}} onPress={() => navigation.replace('Test')}>
-                            <Text style={{color: 'white', fontSize: 15}}>{'<<detail>>'}</Text>
+                        <TouchableOpacity style={styles.detailedButton} onPress={() => navigation.replace('Test')}>
+                            <Text style={styles.detailedButtonText}>{'<<detail>>'}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
             ) : (
-                <View style={{flex: 1, justifyContent: 'flex-end', bottom: '5%'}}>
-                    <TouchableOpacity style={{position: 'absolute', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: '#C4D9F2', paddingVertical: 5, paddingHorizontal: '20%', borderRadius: 50}} onPress={ () => setTestConnection(!testConnection) }>
-                        <Text style={{fontSize: 20}}>
+                <View style={styles.testConnectionBlock}>
+                    <TouchableOpacity style={styles.testConnectionButton} onPress={ () => setTestConnection(!testConnection) }>
+                        <Text style={styles.testConnectionButtonText}>
                             Tes Koneksi
                         </Text>
                     </TouchableOpacity>
@@ -80,7 +79,20 @@ export const MapScreen = ({navigation}) => {
                   
         </View>
     );
-  };
+};
+
+const ImageArrow = props => {
+    return (
+        <Image source={require('../../assets/arrow.png')}  style={[
+            styles.imagePict,
+            {
+                transform: [{
+                    rotate: props.degree
+                }], 
+            }
+        ]} />
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -89,5 +101,91 @@ const styles = StyleSheet.create({
     map: {
         width: '100%',
         height: '100%',
+    },
+    filterButton: {
+        flex: 1, 
+        position: 'absolute', 
+        backgroundColor: 'white', 
+        borderRadius: 50, 
+        marginHorizontal: 20, 
+        marginTop: 40, 
+        paddingVertical: 10, 
+        paddingHorizontal: '8%'
+    },
+    filterButtonText: { 
+        alignSelf: 'center', 
+        fontSize: 15, 
+        fontWeight: 'bold'
+    },
+    testConnectionBlock: {
+        flex: 1, 
+        justifyContent: 'flex-end', 
+        bottom: '5%'
+    },
+    testConnectionButton: {
+        position: 'absolute', 
+        alignSelf: 'center', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor: '#C4D9F2', 
+        paddingVertical: 5, 
+        paddingHorizontal: '20%', 
+        borderRadius: 50
+    },
+    testConnectionButtonText: {
+        fontSize: 20
+    },
+    resultTestConnectionContainer: {
+        flex: 1, 
+        justifyContent: 'flex-end'
+    },
+    resultTestConnectionBlock: {
+        position: "absolute", 
+        width: '100%', 
+        backgroundColor: 'black', 
+        borderTopRightRadius: 25, 
+        borderTopLeftRadius: 25
+    },
+    resultTestConnectionClose: { 
+        alignItems: 'center', 
+        backgroundColor: 'white', 
+        opacity: 0.9, 
+        borderTopRightRadius: 50, 
+        borderTopLeftRadius: 50,
+    },
+    resultMainContainer: { 
+        alignItems: 'center', 
+        marginVertical: '5%'
+    },
+    resultMainSection: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
+    resultMainPart: {
+        flex: 1, 
+        alignItems: 'center', 
+        flexDirection: 'row'
+    },
+    resultMainSpeed: {
+        fontSize: 30, 
+        color: 'white'
+    },
+    resultCommentary: {
+        color: 'yellow', 
+        marginVertical: '10%'
+    },
+    imagePict: {
+        flex: 1, 
+        aspectRatio: 1, 
+        alignSelf: 'center', 
+        marginLeft: '2%'
+    },
+    detailedButton: {
+        alignItems: 'center', 
+        marginBottom: '5%'
+    },
+    detailedButtonText: {
+        color: 'white', 
+        fontSize: 15
     }
 });

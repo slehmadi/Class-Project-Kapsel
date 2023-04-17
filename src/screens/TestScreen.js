@@ -5,49 +5,62 @@ export const TestScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
-            <TouchableOpacity style={{ marginTop: '5%', alignItems: 'center', backgroundColor: 'white', opacity: 0.9}} onPress={() => {checkDetail.push(true); navigation.replace('Map')}}>
+            <TouchableOpacity style={styles.resultTestConnectionClose} onPress={() => {checkDetail.push(true); navigation.replace('Map')}}>
                 <Text>---</Text>
             </TouchableOpacity>
-            <View style={{ alignItems: 'center', marginVertical: '5%'}}>
-                <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                    <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-                        <Image source={require('../../assets/arrow.png')}  style={{flex: 1, aspectRatio: 1, transform: [{rotate: '-90deg'}], alignSelf: 'center', marginLeft: '2%'}} />
+            <View style={styles.resultMainContainer}>
+                <View style={styles.resultMainSection}>
+                    <View style={styles.resultMainPart}>
+                        <ImageArrow degree='-90deg' />
                         <View style={{flex: 1}}>
-                            <Text style={{fontSize: 30, color: 'white'}}>14.56</Text>
+                            <Text style={styles.resultMainSpeed}>14.56</Text>
                             <Text style={{color: 'white'}}>MBps</Text>
                         </View>
                     </View>
-                    <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-                        <Image source={require('../../assets/arrow.png')}  style={{flex: 1, aspectRatio: 1, transform: [{rotate: '90deg'}], alignSelf: 'center', marginLeft: '2%'}} />
+                    <View style={styles.resultMainPart}>
+                        <ImageArrow degree='90deg' />
                         <View style={{flex: 1}}>
-                            <Text style={{fontSize: 30, color: 'white'}}>8.56</Text>
+                            <Text style={styles.resultMainSpeed}>8.56</Text>
                             <Text style={{color: 'white'}}>MBps</Text>
                         </View>
                     </View>
                 </View>
                 <View>
-                    <Text style={{color: 'yellow', marginTop: '10%'}}>Internet kamu cukup baik</Text>
+                    <Text style={styles.resultCommentary}>Internet kamu cukup baik</Text>
                 </View>
             </View>
-            <View style={{marginBottom: '15%', marginLeft: '5%'}}>
-              <Text style={{fontSize: 20, color: 'white', marginBottom: '3%'}}>Klien</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Lokasi: Bandung, ID</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>IP: 111.11.111.11</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Provider: Telkomsel</Text>
+            <View style={styles.detailedContainer}>
+              <Text style={styles.detailedTitle}>Klien</Text>
+              <Text style={styles.detailedPoint}>Lokasi: Bandung, ID</Text>
+              <Text style={styles.detailedPoint}>IP: 111.11.111.11</Text>
+              <Text style={styles.detailedPoint}>Provider: Telkomsel</Text>
             </View>
-            <View style={{marginBottom: '15%', marginLeft: '5%'}}>
-              <Text style={{fontSize: 20, color: 'white', marginBottom: '3%'}}>Latency</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Unloaded: 40 ms</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Loaded: 498 ms</Text>
+            <View style={styles.detailedContainer}>
+              <Text style={styles.detailedTitle}>Latency</Text>
+              <Text style={styles.detailedPoint}>Unloaded: 40 ms</Text>
+              <Text style={styles.detailedPoint}>Loaded: 498 ms</Text>
             </View>
-            <View style={{marginBottom: '15%', marginLeft: '5%'}}>
-              <Text style={{fontSize: 20, color: 'white', marginBottom: '3%'}}>Server</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Jakarta, JKT</Text>
-              <Text style={{fontSize: 15, color: 'white'}}>Singapore, SG</Text>
+            <View style={styles.detailedContainer}>
+              <Text style={styles.detailedTitle}>Server</Text>
+              <Text style={styles.detailedPoint}>Jakarta, JKT</Text>
+              <Text style={styles.detailedPoint}>Singapore, SG</Text>
             </View>
         </View>
     );
-  };
+};
+
+const ImageArrow = props => {
+  return (
+      <Image source={require('../../assets/arrow.png')}  style={[
+          styles.imagePict,
+          {
+              transform: [{
+                  rotate: props.degree
+              }], 
+          }
+      ]} />
+  )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -56,4 +69,50 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%'
     },
+    resultTestConnectionClose: {
+      marginTop: '5%', 
+      alignItems: 'center', 
+      backgroundColor: 'white', 
+      opacity: 0.9, 
+  },
+    resultMainContainer: { 
+        alignItems: 'center', 
+        marginVertical: '5%'
+    },
+    resultMainSection: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
+    resultMainPart: {
+        flex: 1, 
+        alignItems: 'center', 
+        flexDirection: 'row'
+    },
+    resultMainSpeed: {
+        fontSize: 30, 
+        color: 'white'
+    },
+    resultCommentary: {
+        color: 'yellow', 
+        marginVertical: '10%'
+    },
+    imagePict: {
+        flex: 1, 
+        aspectRatio: 1, 
+        alignSelf: 'center', 
+        marginLeft: '2%'
+    },
+    detailedContainer: {
+      marginBottom: '15%', 
+      marginLeft: '5%'
+    },
+    detailedTitle: {
+      fontSize: 20, 
+      color: 'white', 
+      marginBottom: '3%'
+    },
+    detailedPoint: {
+      fontSize: 15, 
+      color: 'white'
+    }
 });
